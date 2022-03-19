@@ -21,6 +21,10 @@ require BASE_PATH . '/vendor/autoload.php';
 
 // Self-called anonymous function that creates its own scope and keep the global namespace clean.
 (function () {
+    if (env('APP_ENV')) {
+        file_put_contents(BASE_PATH . '/.env', file_get_contents(BASE_PATH . '/.env.' . env('APP_ENV')));
+    }
+
     Hyperf\Di\ClassLoader::init();
     /** @var Psr\Container\ContainerInterface $container */
     $container = require BASE_PATH . '/config/container.php';
